@@ -1,0 +1,4 @@
+/target
+node_modules
+/public/bundle.js
+/public/bundle.js.LICENSE.txt
