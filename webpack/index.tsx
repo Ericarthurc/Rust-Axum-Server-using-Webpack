@@ -1,4 +1,4 @@
-import { h, render, Fragment } from 'preact';
+import { h, render } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 import axios from 'axios';
 
@@ -16,7 +16,7 @@ const App = (props: any) => {
   }, []);
 
   const getData = async () => {
-    const { data, status } = await axios.get<Package[]>('/api', {
+    const { data } = await axios.get<Package[]>('/api', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -26,11 +26,18 @@ const App = (props: any) => {
     setDataList(data);
   };
 
+  const deleteHandler = (id: number) => {
+    setDataList(() => {
+      return dataList.filter((payload) => payload.id !== id);
+    });
+  };
+
   const packageMap = dataList.map((payload) => {
     return (
-      <li key={payload.id} id={`${payload.id}`}>
+      <li key={payload.id}>
         <p>{payload.name}</p>
         <p>{payload.age}</p>
+        <button onClick={() => deleteHandler(payload.id)}>Delete</button>
       </li>
     );
   });

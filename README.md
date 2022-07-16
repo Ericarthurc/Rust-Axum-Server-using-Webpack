@@ -18,5 +18,5 @@ This is a proof of concept and wip project to show how to generate backend rende
 
 #### Missing
 
-- Frontend `DELETE` method call
-- Rerender of frontend on state change
+- Frontend `DELETE` method call to backend
+- Move data to database for persistent state
