@@ -36,6 +36,7 @@ async fn main() {
     let app = Router::new()
         .route("/", get(index))
         .route("/api", get(get_data).delete(delete_data))
+        .route("/about", get(about))
         .nest(
             "/public",
             get_service(ServeDir::new("./public/")).handle_error(
@@ -101,4 +102,13 @@ async fn delete_data(extract::Json(payload): extract::Json<PackageId>) -> Respon
     println!("{:?}", payload);
 
     ().into_response()
+}
+
+#[derive(Template)]
+#[template(path = "about.html")]
+struct AboutTemplate {}
+
+async fn about() -> Response {
+    let template = AboutTemplate {};
+    HtmlTemplate(template).into_response()
 }
